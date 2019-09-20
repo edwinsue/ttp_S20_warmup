@@ -27,4 +27,15 @@ GROUP BY staff_id
 
 -- What is the average number of films we have per genre (category)?
 
-Did not complete
+WITH film_category_count AS (
+	SELECT 
+	c.name,
+	COUNT(c.name)
+	FROM film f
+	JOIN film_category fc USING (film_id)
+	JOIN category c USING (category_id)
+	GROUP BY c.name
+)
+
+SELECT ROUND(AVG(count),2)
+FROM film_category_count
